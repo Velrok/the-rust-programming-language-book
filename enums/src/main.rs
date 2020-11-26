@@ -15,20 +15,18 @@ impl fmt::Display for Temp {
     }
 }
 
-
 fn main() {
     let london = Temp::C(8.0);
     let orlando = Temp::F(80.0);
 
-    println!("Temperature in London {}({})", as_c(london), london);
-    println!("Temperature in Orlando {}({})", as_c(orlando), orlando);
+    println!("Temperature in London {}({})", as_c(&london), london);
+    println!("Temperature in Orlando {}({})", as_c(&orlando), orlando);
 }
 
 fn as_c(t: &Temp) -> Temp {
-    let tt = t.copy();
-    match tt {
-        Temp::C(x) => Temp::C(x),
-        Temp::F(x) => Temp::C(x),
+    match t {
+        Temp::C(x) => Temp::C(*x),
+        Temp::F(x) => Temp::C(to_c(*x)),
     }
 }
 
